@@ -3,6 +3,7 @@ package org.ll;
 import org.ll.backjun.samsung.SamsungA2Pipe;
 import org.ll.backjun.samsung.SamsungA3Castle;
 import org.ll.backjun.samsung.SamsungA4ColorPaper;
+import org.ll.backjun.samsung.SamsungA5Baseball;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,11 +28,11 @@ public class Main {
                 continue;
             }
 
-            int[][] board = new int[10][10];
-
-            for(int r = 0;r < 10; r++) {
-                for(int c= 0 ; c < 10; c++) {
-                    board[r][c] = sc.nextInt();
+            int innings = sc.nextInt();
+            int[][] expects = new int[innings][9];
+            for(int i = 0; i < innings; i++){
+                for(int j = 0; j < 9; j++){
+                    expects[i][j] = sc.nextInt();
                 }
             }
 
@@ -39,9 +40,9 @@ public class Main {
             long startTime = System.nanoTime();
 
             // 연산함수 자리
-            SamsungA4ColorPaper data = new SamsungA4ColorPaper(board);
-            System.out.println(data.findMin());
-//            System.out.println(data);
+            SamsungA5Baseball data = new SamsungA5Baseball(innings, expects);
+            System.out.println(data.findMax());
+            //System.out.println(data);
 
             // 종료 시간 기록
             long endTime = System.nanoTime();
