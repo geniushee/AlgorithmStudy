@@ -5,33 +5,32 @@ import org.ll.backjun.samsung.SamsungA3Castle;
 import org.ll.backjun.samsung.SamsungA4ColorPaper;
 import org.ll.backjun.samsung.SamsungA5Baseball;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
         //세팅
         boolean button = true;
         Scanner sc = new Scanner(System.in);
 
-        while(button){
+        while (button) {
             System.out.print("문제풀기 : a, 종료 : q\n입력 : ");
             String word = sc.next();
-            if(word.equals("q")){
+            if (word.equals("q")) {
                 button = false;
                 continue;
             }
 
-            if(!word.equals("a")){
+            if (!word.equals("a")) {
                 continue;
             }
 
             int innings = sc.nextInt();
             int[][] expects = new int[innings][9];
-            for(int i = 0; i < innings; i++){
-                for(int j = 0; j < 9; j++){
+            for (int i = 0; i < innings; i++) {
+                for (int j = 0; j < 9; j++) {
                     expects[i][j] = sc.nextInt();
                 }
             }
@@ -78,7 +77,7 @@ public class Main {
 //
 //            // 나노초 단위를 밀리초 단위로 변환
 //            double milliseconds = duration / 1_000_000.0;
-//
+//}
 //            System.out.println("연산 시간: " + duration + " 나노초");
 //            System.out.println("연산 시간: " + milliseconds + " 밀리초");
 //
@@ -86,8 +85,6 @@ public class Main {
 //            System.out.println("답안 :");
 //
 //            System.out.println("정답? ");
-        }
-
-
     }
+}
 
