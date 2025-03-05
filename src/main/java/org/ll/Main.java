@@ -1,12 +1,10 @@
 package org.ll;
 
-import org.ll.backjun.samsung.SamsungA2Pipe;
-import org.ll.backjun.samsung.SamsungA3Castle;
-import org.ll.backjun.samsung.SamsungA4ColorPaper;
+import org.ll.algorithm.binarySearch.CountLanWire;
 import org.ll.backjun.samsung.SamsungA5Baseball;
 
 import java.io.*;
-import java.util.*;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
