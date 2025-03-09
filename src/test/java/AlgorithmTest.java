@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.ll.algorithm.bfs.Emoticon;
 import org.ll.algorithm.bfs.SearchPrime;
 import org.ll.algorithm.dp.ContinuousMaxSum;
 
@@ -47,5 +49,13 @@ public class AlgorithmTest {
         Assertions.assertEquals(6,answer[0]);
         Assertions.assertEquals(7,answer[1]);
         Assertions.assertEquals(0,answer[2]);
+    }
+
+    @Test
+    @DisplayName("이모티콘 갯수가 같은가?")
+    public void countEmoticon(){
+        Assertions.assertEquals(2,Emoticon.bfs(2));
+        Assertions.assertEquals(4, Emoticon.bfs(4));
+        Assertions.assertEquals(5,Emoticon.bfs(6));
     }
 }

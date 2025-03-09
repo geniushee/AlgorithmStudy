@@ -1,5 +1,9 @@
 package org.ll.algorithm.bfs;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * 모티콘
  * 영선이는 매우 기쁜 마음에 효빈이에게 S개의 스마일 이모티콘을 보내려고 합니다. 처음에는 화면에 이모티콘 1개가 입력되어 있습니다.
@@ -31,4 +35,63 @@ package org.ll.algorithm.bfs;
  * 5<br>
  */
 public class Emoticon {
+
+    public static int bfs(int target){
+        HashSet<String> visited = new HashSet<>();
+        Queue<State> queue = new LinkedList<>();
+
+        State object = new State(1, 0,0);
+        visited.add(object.screen+","+ object.clipboard);
+        queue.add(object);
+
+        while((object = queue.poll()) != null){
+//            System.out.println(object);
+            if(object.screen == target){
+                return object.time;
+            }
+
+            if(!visited.contains(object.screen+","+object.screen)){
+                visited.add(object.screen+","+ object.screen);
+                queue.add(new State(object.screen, object.screen, object.time + 1));
+            }
+
+            if(object.clipboard > 0 && !visited.contains(object.paste()+","+ object.clipboard)){
+                visited.add(object.paste()+","+ object.screen);
+                queue.add(new State(object.paste(), object.clipboard, object.time + 1));
+            }
+
+            if(object.screen > 0 && !visited.contains(object.remove()+","+ object.clipboard)){
+                visited.add(object.remove()+","+ object.screen);
+                queue.add(new State(object.remove(), object.clipboard, object.time + 1));
+            }
+        }
+
+        return -1;
+    }
+
+    static class State{
+        private int screen;
+        private int clipboard;
+        private int time;
+
+        private State(int screen, int clipboard, int time) {
+            this.screen = screen;
+            this.clipboard = clipboard;
+            this.time  = time;
+        }
+
+        private int paste(){
+            return screen + clipboard;
+        }
+
+        private int remove(){
+            return screen -1;
+        }
+//
+//        @Override
+//        public String toString() {
+//            return this.screen + "/"+this.clipboard+"/"+this.time;
+//        }
+    }
 }
+
