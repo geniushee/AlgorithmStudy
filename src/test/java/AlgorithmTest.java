@@ -3,6 +3,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.ll.algorithm.bfs.Emoticon;
 import org.ll.algorithm.bfs.SearchPrime;
+import org.ll.algorithm.bfs.ShortestDistance;
 import org.ll.algorithm.dp.ContinuousMaxSum;
 
 import java.io.BufferedReader;
@@ -57,5 +58,19 @@ public class AlgorithmTest {
         Assertions.assertEquals(2,Emoticon.bfs(2));
         Assertions.assertEquals(4, Emoticon.bfs(4));
         Assertions.assertEquals(5,Emoticon.bfs(6));
+    }
+
+    @Test
+    @DisplayName("최단거리-가중치")
+    public void shortestDistance(){
+        int V = 5;
+        int E = 6;
+        int K = 1;
+        Integer[][] arr;
+        arr = new Integer[][]{new Integer[]{5,1,1},new Integer[]{1,2,2},new Integer[]{1, 3, 3},new Integer[]{2, 3, 4},new Integer[]{2, 4, 5}, new Integer[]{3,4,6}};
+        Integer[] result = ShortestDistance.search(V,E,K,arr);
+        for(int i : result){
+            Assertions.assertEquals(0, i);
+        }
     }
 }
