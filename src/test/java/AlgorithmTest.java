@@ -69,8 +69,9 @@ public class AlgorithmTest {
         Integer[][] arr;
         arr = new Integer[][]{new Integer[]{5,1,1},new Integer[]{1,2,2},new Integer[]{1, 3, 3},new Integer[]{2, 3, 4},new Integer[]{2, 4, 5}, new Integer[]{3,4,6}};
         Integer[] result = ShortestDistance.search(V,E,K,arr);
-        for(int i : result){
-            Assertions.assertEquals(0, i);
+        Integer[] correct = new Integer[]{0,0,2,3,7,-1};
+        for(int i = 1; i <= result.length; i++){
+            Assertions.assertEquals(correct[i], result[i]);
         }
     }
 }
