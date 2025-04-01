@@ -5,6 +5,7 @@ import org.ll.algorithm.bfs.Emoticon;
 import org.ll.algorithm.bfs.SearchPrime;
 import org.ll.algorithm.bfs.ShortestDistance;
 import org.ll.algorithm.dp.ContinuousMaxSum;
+import org.ll.algorithm.gridy.MeetingRoom2;
 import org.ll.backjun.SetProblem;
 
 import java.io.BufferedReader;
@@ -135,4 +136,23 @@ public class AlgorithmTest {
         }
     }
 
+    @Test
+    @DisplayName("그리디 알고리즘 - 미팅룸")
+    public void meetingRoom2() throws IOException {
+        int result = MeetingRoom2.run("""
+                11
+                1 4
+                3 5
+                0 6
+                5 7
+                3 8
+                5 9
+                6 10
+                8 11
+                8 12
+                2 13
+                12 14""");
+
+        Assertions.assertEquals(4,result);
+    }
 }
