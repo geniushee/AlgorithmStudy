@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.ll.algorithm.bfs.Emoticon;
 import org.ll.algorithm.bfs.SearchPrime;
 import org.ll.algorithm.bfs.ShortestDistance;
+import org.ll.algorithm.binarySearch.BuildSharing;
 import org.ll.algorithm.dp.ContinuousMaxSum;
 import org.ll.algorithm.gridy.MeetingRoom2;
 import org.ll.backjun.SetProblem;
@@ -154,5 +155,19 @@ public class AlgorithmTest {
                 12 14""");
 
         Assertions.assertEquals(4,result);
+    }
+
+    @Test
+    @DisplayName("공유기 설치")
+    public void buildSharing() throws IOException {
+        int distance = BuildSharing.run("""
+                5 3
+                1
+                2
+                8
+                4
+                9""");
+
+        Assertions.assertEquals(3, distance);
     }
 }
