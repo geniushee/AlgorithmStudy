@@ -7,6 +7,7 @@ import org.ll.algorithm.bfs.ShortestDistance;
 import org.ll.algorithm.binarySearch.BuildSharing;
 import org.ll.algorithm.dp.ContinuousMaxSum;
 import org.ll.algorithm.gridy.MeetingRoom2;
+import org.ll.backjun.Num13414;
 import org.ll.backjun.SetProblem;
 
 import java.io.BufferedReader;
@@ -169,5 +170,25 @@ public class AlgorithmTest {
                 9""");
 
         Assertions.assertEquals(3, distance);
+    }
+
+    @Test
+    @DisplayName("수강신청")
+    public void Num13414() throws IOException {
+        int[] correct = new int[]{20103324, 20133221,20140101};
+        int[] res = Num13414.main("""
+                1 8
+                20103324
+                20133221
+                20133221
+                20093778
+                20140101
+                01234567
+                20093778
+                20103325""");
+        for(int i=0;i<3;i++){
+            Assertions.assertEquals(res[i],correct[i]);
+        }
+
     }
 }
