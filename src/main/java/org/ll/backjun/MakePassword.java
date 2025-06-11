@@ -1,5 +1,8 @@
 package org.ll.backjun;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.*;
 
 /**
@@ -32,7 +35,7 @@ import java.util.*;
  * istw
  */
 public class MakePassword {
-    public static List<String> search(final int c,final int l,final String[] strs){
+    public static Queue<String> search(final int c,final int l,final String[] strs){
         // 오름차순 정렬
         Arrays.sort(strs);
         // answer
@@ -43,17 +46,51 @@ public class MakePassword {
             dfs(c, l, i, current + strs[i] ,answer, strs);
         }
 
-        return new ArrayList<>();
+        return answer;
     }
 
     private static void dfs(int c, int l, int i, String current, Queue<String> answer, String[] strs) {
         if(current.length() == c){
-            answer.add(current);
+            int mo = 0;
+            int ja = 0;
+            List<Character> aeiou = List.of('a', 'e', 'i', 'o','u');
+            for(Character a : current.toCharArray()){
+                if(aeiou.contains(a)){
+                    mo++;
+                }else{
+                    ja++;
+                }
+
+                if(mo > 0 && ja > 1){
+                    answer.add(current);
+                    return ;
+                }
+            }
             return ;
         }
 
         for(int j = i+1; j < l; j++){
             dfs(c,l,j,current + strs[j], answer, strs);
+        }
+    }
+
+    public static void main(String s) throws IOException {
+        BufferedReader br = new BufferedReader(new StringReader(s));
+        String line = br.readLine();
+
+        StringTokenizer st = new StringTokenizer(line);
+        int c = Integer.parseInt(st.nextToken());
+        int l = Integer.parseInt(st.nextToken());
+
+        String[] strs = new String[l];
+        int i = 0;
+        st = new StringTokenizer(br.readLine());
+        while(st.hasMoreTokens()){
+            strs[i++] = st.nextToken();
+        }
+
+        for(String bit : search(c,l, strs)){
+            System.out.println(bit);
         }
     }
 }

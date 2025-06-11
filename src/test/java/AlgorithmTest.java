@@ -7,6 +7,7 @@ import org.ll.algorithm.bfs.ShortestDistance;
 import org.ll.algorithm.binarySearch.BuildSharing;
 import org.ll.algorithm.dp.ContinuousMaxSum;
 import org.ll.algorithm.gridy.MeetingRoom2;
+import org.ll.backjun.MakePassword;
 import org.ll.backjun.Num13414;
 import org.ll.backjun.SetProblem;
 
@@ -190,5 +191,14 @@ public class AlgorithmTest {
             Assertions.assertEquals(res[i],correct[i]);
         }
 
+    }
+
+    @Test
+    @DisplayName("비밀번호 만들기")
+    public void makePassword() throws IOException {
+
+        MakePassword.main("""
+                4 6
+                a t c i s w""");
     }
 }
