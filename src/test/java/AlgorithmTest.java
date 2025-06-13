@@ -7,6 +7,7 @@ import org.ll.algorithm.bfs.ShortestDistance;
 import org.ll.algorithm.binarySearch.BuildSharing;
 import org.ll.algorithm.dp.ContinuousMaxSum;
 import org.ll.algorithm.gridy.MeetingRoom2;
+import org.ll.backjun.Laboratory;
 import org.ll.backjun.MakePassword;
 import org.ll.backjun.Num13414;
 import org.ll.backjun.SetProblem;
@@ -200,5 +201,20 @@ public class AlgorithmTest {
         MakePassword.main("""
                 4 6
                 a t c i s w""");
+    }
+
+    @Test
+    @DisplayName("연구소")
+    public void laboratory() throws IOException {
+        int max = Laboratory.run("""
+                7 7
+                2 0 0 0 1 1 0
+                0 0 1 0 1 2 0
+                0 1 1 0 1 0 0
+                0 1 0 0 0 0 0
+                0 0 0 0 0 1 1
+                0 1 0 0 0 0 0
+                0 1 0 0 0 0 0""");
+        System.out.println("max = "+max);
     }
 }
