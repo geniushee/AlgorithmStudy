@@ -216,5 +216,23 @@ public class AlgorithmTest {
                 0 1 0 0 0 0 0
                 0 1 0 0 0 0 0""");
         System.out.println("max = "+max);
+        max = Laboratory.run("""
+                4 6
+                0 0 0 0 0 0
+                1 0 0 0 0 2
+                1 1 1 0 0 2
+                0 0 0 0 0 2""");
+        System.out.println("max = "+max);
+        max = Laboratory.run("""
+                8 8
+                2 0 0 0 0 0 0 2
+                2 0 0 0 0 0 0 2
+                2 0 0 0 0 0 0 2
+                2 0 0 0 0 0 0 2
+                2 0 0 0 0 0 0 2
+                0 0 0 0 0 0 0 0
+                0 0 0 0 0 0 0 0
+                0 0 0 0 0 0 0 0""");
+        System.out.println("max = "+max);
     }
 }

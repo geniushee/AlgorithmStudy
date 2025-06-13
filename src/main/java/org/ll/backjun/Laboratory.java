@@ -95,6 +95,7 @@ public class Laboratory {
         n = Integer.parseInt(nm[0]);
         m = Integer.parseInt(nm[1]);
         lab = new int[n][m];
+        max = Integer.MIN_VALUE;
 
         for (int i = 0; i < n; i++) {
             String[] row = br.readLine().split(" ");
@@ -128,7 +129,7 @@ public class Laboratory {
             int[][] virus = virus();
             // max 갱신
             int temp = countMax(virus);
-            if(max <= temp){
+            if(max < temp){
                 max = temp;
                 System.out.println(Arrays.deepToString(lab)+", 이번 안전지대: " + temp);
                 System.out.println(Arrays.deepToString(virus));
