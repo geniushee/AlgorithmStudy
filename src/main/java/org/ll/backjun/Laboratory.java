@@ -1,9 +1,6 @@
 package org.ll.backjun;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringReader;
+import java.io.*;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -84,8 +81,33 @@ public class Laboratory {
     private static int[][] lab;
     private static int max = Integer.MIN_VALUE;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] nm = br.readLine().split(" ");
+
+        n = Integer.parseInt(nm[0]);
+        m = Integer.parseInt(nm[1]);
+        lab = new int[n][m];
+        max = Integer.MIN_VALUE;
+
+        for (int i = 0; i < n; i++) {
+            String[] row = br.readLine().split(" ");
+            for (int j = 0; j < m; j++) {
+                lab[i][j] = Integer.parseInt(row[j]);
+            }
+        }
+
+        // 벽세우기 시작
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                dfs(i, j, 3);
+            }
+        }
+
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        bw.write(max + "\n");
+        bw.flush();
+        bw.close();
     }
 
     public static int run(String input) throws IOException {
