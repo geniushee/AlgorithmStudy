@@ -1,8 +1,7 @@
 package org.ll.backjun;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.StringReader;
+import java.io.*;
+import java.util.Arrays;
 
 /**
  * 문제<br>
@@ -30,8 +29,40 @@ public class NormalBackpack {
     private static Thing[] things;
     private static boolean[] visited;
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        // 초기화
+        String[] line = br.readLine().split(" ");
+        n = Integer.parseInt(line[0]);
+        k = Integer.parseInt(line[1]);
+        maxValueOfweight = new int[k + 1];
+        maxValueOfweight[0] = 0;
 
+        things = new Thing[n];
+        for(int i = 0; i<n;i++) {
+            line = br.readLine().split(" ");
+            things[i] =  new Thing(Integer.parseInt(line[0]),Integer.parseInt(line[1]));
+        }
+        visited = new boolean[n];
+
+        // 첫번째 물건 넣기
+        for(int i = 0; i < n; i++){
+            for(int j = k; j >= things[i].weight; j--){
+                maxValueOfweight[j] = Math.max(maxValueOfweight[j], maxValueOfweight[j - things[i].weight] + things[i].value);
+            }
+            System.out.println(Arrays.toString(maxValueOfweight));
+        }
+
+        int maxValue = 0;
+        for(int value : maxValueOfweight){
+            if(maxValue < value){
+                maxValue = value;
+            }
+        }
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        bw.write(maxValue + "\n");
+        bw.flush();
+        bw.close();
     }
 
     public static void run(String args) throws IOException {
@@ -52,7 +83,10 @@ public class NormalBackpack {
 
         // 첫번째 물건 넣기
         for(int i = 0; i < n; i++){
-            dfs(i, things[i].weight, things[i].value);
+            for(int j = k; j >= things[i].weight; j--){
+                maxValueOfweight[j] = Math.max(maxValueOfweight[j], maxValueOfweight[j - things[i].weight] + things[i].value);
+            }
+            System.out.println(Arrays.toString(maxValueOfweight));
         }
 
         int maxValue = 0;
@@ -65,19 +99,23 @@ public class NormalBackpack {
     }
 
     private static void dfs(int idx, int curW, int curV) {
+        System.out.printf("현재 %d에 방문, 현재 무게: %d, 현재 가치:%d%n",idx, curW, curV);
+        System.out.println(Arrays.toString(maxValueOfweight));
+        System.out.println(Arrays.toString(visited));
         // 최대치를 넘으면 나가기
         if(curW > k){
+            System.out.println("최대무게 초과");
             return ;
         }
 
         // 현재 무게에서 가치가 부족하면 나가기
-        if(curV < maxValueOfweight[curW]){
+        if(curV <= maxValueOfweight[curW]){
+            System.out.println("가치 미달");
             return ;
         }
 
         // n번째 물건 방문처리 + 가치 더하기
         visited[idx] = true;
-
         maxValueOfweight[curW] = curV;
 
         // n + 1번째 물건 넣기
@@ -100,6 +138,4 @@ public class NormalBackpack {
             value = v;
         }
     }
-
-
 }

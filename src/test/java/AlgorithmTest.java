@@ -7,10 +7,7 @@ import org.ll.algorithm.bfs.ShortestDistance;
 import org.ll.algorithm.binarySearch.BuildSharing;
 import org.ll.algorithm.dp.ContinuousMaxSum;
 import org.ll.algorithm.gridy.MeetingRoom2;
-import org.ll.backjun.Laboratory;
-import org.ll.backjun.MakePassword;
-import org.ll.backjun.Num13414;
-import org.ll.backjun.SetProblem;
+import org.ll.backjun.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -234,5 +231,29 @@ public class AlgorithmTest {
                 0 0 0 0 0 0 0 0
                 0 0 0 0 0 0 0 0""");
         System.out.println("max = "+max);
+    }
+
+    @Test
+    @DisplayName("평범한 배낭")
+    public void normalBackpack() throws IOException {
+        NormalBackpack.run("""
+                4 7
+                6 13
+                4 8
+                3 6
+                5 12""");
+        NormalBackpack.run("""
+                10 18
+                6 13
+                4 8
+                3 6
+                5 12
+                9 20
+                10 9
+                7 14
+                2 5
+                11 23
+                14 17
+                """);
     }
 }
