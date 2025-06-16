@@ -256,4 +256,23 @@ public class AlgorithmTest {
                 14 17
                 """);
     }
+
+    @Test
+    @DisplayName("AC")
+    public void ac() throws IOException {
+        AC.main("""
+                4
+                RDDDD
+                4
+                [1,2,3,4]
+                DD
+                1
+                [42]
+                RRD
+                6
+                [1,1,2,3,5,8]
+                D
+                0
+                []""");
+    }
 }
