@@ -275,4 +275,39 @@ public class AlgorithmTest {
                 0
                 []""");
     }
+
+    @Test
+    @DisplayName("tomato")
+    public void tomato() throws IOException {
+        Tomato.run("""
+                6 4
+                0 0 0 0 0 0
+                0 0 0 0 0 0
+                0 0 0 0 0 0
+                0 0 0 0 0 1""");
+        Tomato.run("""
+                6 4
+                0 -1 0 0 0 0
+                -1 0 0 0 0 0
+                0 0 0 0 0 0
+                0 0 0 0 0 1""");
+        Tomato.run("""
+                6 4
+                1 -1 0 0 0 0
+                0 -1 0 0 0 0
+                0 0 0 0 -1 0
+                0 0 0 0 -1 1""");
+        Tomato.run("""
+                5 5
+                -1 1 0 0 0
+                0 -1 -1 -1 0
+                0 -1 -1 -1 0
+                0 -1 -1 -1 0
+                0 0 0 0 0""");
+        Tomato.run("""
+                2 2
+                1 -1
+                -1 1""");
+
+    }
 }

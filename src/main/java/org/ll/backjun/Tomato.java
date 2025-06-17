@@ -1,9 +1,8 @@
 package org.ll.backjun;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.Set;
+import java.io.*;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * 문제<br>
@@ -57,102 +56,238 @@ import java.util.Set;
  */
 public class Tomato {
     private static int[][] box;
-    private static int totalCount;
-    private static int unripeCount;
-    private static Set<Axis> set;
-    private static int[] dx = new int[]{-1,1,0,0};
-    private static int[] dy = new int[]{0,0,-1,1};
 
-    class Axis{
+    static class Axis {
         private int x;
         private int y;
-        public Axis(int x, int y){
+        public Axis(int x, int y) {
             this.x = x;
             this.y = y;
         }
-
-        @Override
-        public int hashCode() {
-            return Integer.parseInt("" + this.x + this.y);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if(this == obj) return true;
-            if(!(obj instanceof Axis b)){
-                return false;
-            }
-            return this.x == b.x && this.y == b.y;
-        }
     }
 
-    public static void main(String[] arg){
-
-    }
-    public void run(String arg) throws IOException {
-        BufferedReader br = new BufferedReader(new StringReader(arg));
+    public static void main(String[] arg) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         String[] line = br.readLine().split(" ");
         int m = Integer.parseInt(line[0]);
         int n = Integer.parseInt(line[1]);
+        box = new int[n][m];
+        int unripeCount = 0;
+        int[] dx = new int[]{-1, 1, 0, 0};
+        int[] dy = new int[]{0, 0, -1, 1};
+        int day = 0;
 
         // 박스, 전체, 안익은 토마토 정리
+        Queue<Axis> queue = new LinkedList<>();
         box = new int[n][m];
-        for(int i = 0; i < n; i++){
+        for (int i = 0; i < n; i++) {
             line = br.readLine().split(" ");
-            for(int j = 0; j < line.length; j++){
+            for (int j = 0; j < line.length; j++) {
                 int tomato = Integer.parseInt(line[j]);
-                if(tomato != 0){
-                    totalCount++;
-                    if(tomato == -1){
+                if (tomato != -1) {
+                    if (tomato == 0) {
                         unripeCount++;
+                    } else {
+                        // 익은 토마토 넣기
+                        queue.add(new Axis(i, j));
                     }
                 }
                 box[i][j] = tomato;
             }
         }
 
+        // 이미 다 익음
         if(unripeCount == 0){
-            System.out.println(0+"\n");
+            bw.write(0+"\n");
+            bw.flush();
+            bw.close();
+            return ;
         }
 
-        // 익은 토마토 찾고 주변 안 익은 토마토 찾기
-        boolean change;
-        int day = 0;
-        while(true){
-            // change 초기화
-            change = false;
-            //익은 토마토 주변 토마토 확인
-            for(int i = 0; i<n; i++){
-                for(int j =0; j<m;j++){
-                    if(box[i][j] == 1){
-                        for(int k = 0; k < 4; k++){
-                            int x = i + dx[k];
-                            int y = j + dy[k];
-                            if(x >=0 && x <n && y >=0 && y <m && box[x][y] == -1){
-                                change = true;
-                                set.add(new Axis(x,y));
-                            }
-                        }
-                    }
+        // 익은 토마토 확산
+        while (!queue.isEmpty()) {
+            Axis axis = queue.poll();
+            for(int k = 0;k<4;k++) {
+                int x = axis.x + dx[k];
+                int y = axis.y + dy[k];
+                if (x >= 0 && x < n && y >= 0 && y < m && box[x][y] == 0) {
+                    box[x][y] = box[axis.x][axis.y] + 1;
+                    queue.offer(new Axis(x, y));
                 }
             }
-            if(!change){
-                break;
-            }
-
-            // 토마토 변경, 날짜 세기
-            for(Axis axis : set){
-                box[axis.x][axis.y] = 1;
-                unripeCount--;
-            }
-            day++;
-
-        }
-        if(unripeCount != 0){
-            System.out.println(-1 + "\n");
-            return;
         }
 
-        System.out.println("다 익는데 걸린 시간 : " +day);
+        // 다 안 익음
+        if(unripe()){
+            bw.write(-1+"\n");
+            bw.flush();
+            bw.close();
+            return ;
+        }
+
+        bw.write((maxday(box) - 1)+"\n");
+        bw.flush();
+        bw.close();
     }
+
+    public static void run(String arg) throws IOException {
+        BufferedReader br = new BufferedReader(new StringReader(arg));
+        String[] line = br.readLine().split(" ");
+        int m = Integer.parseInt(line[0]);
+        int n = Integer.parseInt(line[1]);
+        box = new int[n][m];
+        int unripeCount = 0;
+        int[] dx = new int[]{-1, 1, 0, 0};
+        int[] dy = new int[]{0, 0, -1, 1};
+        int day = 0;
+        System.out.println("초기화 완료");
+
+        // 박스, 전체, 안익은 토마토 정리
+        Queue<Axis> queue = new LinkedList<>();
+        box = new int[n][m];
+        for (int i = 0; i < n; i++) {
+            line = br.readLine().split(" ");
+            for (int j = 0; j < line.length; j++) {
+                int tomato = Integer.parseInt(line[j]);
+                if (tomato != -1) {
+                    if (tomato == 0) {
+                        unripeCount++;
+                    } else {
+                        // 익은 토마토 넣기
+                        queue.add(new Axis(i, j));
+                    }
+                }
+                box[i][j] = tomato;
+            }
+        }
+        System.out.println("토마토 정리 완료");
+
+        // 이미 다 익음
+        if(unripeCount == 0){
+            System.out.println(0+"\n");
+            return ;
+        }
+
+        // 익은 토마토 확산
+        while (!queue.isEmpty()) {
+            Axis axis = queue.poll();
+            for(int k = 0;k<4;k++) {
+                int x = axis.x + dx[k];
+                int y = axis.y + dy[k];
+                if (x >= 0 && x < n && y >= 0 && y < m && box[x][y] == 0) {
+                    box[x][y] = box[axis.x][axis.y] + 1;
+                    queue.offer(new Axis(x, y));
+                }
+            }
+        }
+        System.out.println("토마토 확산 완료");
+
+        // 다 안 익음
+        if(unripe()){
+            System.out.println(-1+"\n");
+            return ;
+        }
+
+        System.out.println("정답");
+        System.out.println(maxday(box) -1+"\n");
+    }
+
+    private static boolean unripe() {
+        for(int[] row : box){
+            for(int col : row){
+                if(col == 0){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    private static int maxday(int[][] box) {
+        int max = 1;
+        for(int i = 0;i<box.length;i++){
+            for(int j =0;j<box[i].length; j++){
+                if(max < box[i][j]){
+                    max = box[i][j];
+                }
+            }
+        }
+        return max;
+    }
+
+
+    // 시간 초과
+//    public static void run(String arg) throws IOException {
+//        BufferedReader br = new BufferedReader(new StringReader(arg));
+//        String[] line = br.readLine().split(" ");
+//        int m = Integer.parseInt(line[0]);
+//        int n = Integer.parseInt(line[1]);
+//        totalCount = 0;
+//        unripeCount = 0;
+//
+//        // 박스, 전체, 안익은 토마토 정리
+//        set = new HashSet<>();
+//        box = new int[n][m];
+//        for(int i = 0; i < n; i++){
+//            line = br.readLine().split(" ");
+//            for(int j = 0; j < line.length; j++){
+//                int tomato = Integer.parseInt(line[j]);
+//                if(tomato != -1){
+//                    totalCount++;
+//                    if(tomato == 0){
+//                        unripeCount++;
+//                    }
+//                }
+//                box[i][j] = tomato;
+//            }
+//        }
+//
+//        if(unripeCount == 0){
+//            System.out.println(0+"\n");
+//        }
+//
+//        // 익은 토마토 찾고 주변 안 익은 토마토 찾기
+//        boolean change;
+//        int day = 0;
+//        while(true){
+//            // change 초기화
+//            change = false;
+//            //익은 토마토 주변 토마토 확인
+//            for(int i = 0; i<n; i++){
+//                for(int j =0; j<m;j++){
+//                    if(box[i][j] == 1){
+////                        System.out.println("익은토마토"+i+j);
+//                        for(int k = 0; k < 4; k++){
+//                            int x = i + dx[k];
+//                            int y = j + dy[k];
+//                            if(x >=0 && x <n && y >=0 && y <m && box[x][y] == 0){
+//                                change = true;
+//                                set.add(new Axis(x,y));
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//            if(!change){
+//                break;
+//            }
+//
+//            // 토마토 변경, 날짜 세기
+//            for(Axis axis : set){
+////                System.out.println(axis.x + "/"+axis.y);
+//                box[axis.x][axis.y] = 1;
+//                unripeCount--;
+//            }
+//            set.clear();
+//            day++;
+//
+//        }
+//        if(unripeCount != 0){
+////            System.out.println("남은 토마토" + unripeCount);
+//            System.out.println(-1 + "\n");
+//            return;
+//        }
+//
+//        System.out.println("다 익는데 걸린 시간 : " +day+"\n");
+//    }
 }
