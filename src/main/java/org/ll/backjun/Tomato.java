@@ -1,5 +1,10 @@
 package org.ll.backjun;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.Set;
+
 /**
  * 문제<br>
  * 철수의 토마토 농장에서는 토마토를 보관하는 큰 창고를 가지고 있다. 토마토는 아래의 그림과 같이 격자 모양 상자의 칸에 하나씩 넣어서 창고에 보관한다.<br>
@@ -51,4 +56,103 @@ package org.ll.backjun;
  * 0
  */
 public class Tomato {
+    private static int[][] box;
+    private static int totalCount;
+    private static int unripeCount;
+    private static Set<Axis> set;
+    private static int[] dx = new int[]{-1,1,0,0};
+    private static int[] dy = new int[]{0,0,-1,1};
+
+    class Axis{
+        private int x;
+        private int y;
+        public Axis(int x, int y){
+            this.x = x;
+            this.y = y;
+        }
+
+        @Override
+        public int hashCode() {
+            return Integer.parseInt("" + this.x + this.y);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if(this == obj) return true;
+            if(!(obj instanceof Axis b)){
+                return false;
+            }
+            return this.x == b.x && this.y == b.y;
+        }
+    }
+
+    public static void main(String[] arg){
+
+    }
+    public void run(String arg) throws IOException {
+        BufferedReader br = new BufferedReader(new StringReader(arg));
+        String[] line = br.readLine().split(" ");
+        int m = Integer.parseInt(line[0]);
+        int n = Integer.parseInt(line[1]);
+
+        // 박스, 전체, 안익은 토마토 정리
+        box = new int[n][m];
+        for(int i = 0; i < n; i++){
+            line = br.readLine().split(" ");
+            for(int j = 0; j < line.length; j++){
+                int tomato = Integer.parseInt(line[j]);
+                if(tomato != 0){
+                    totalCount++;
+                    if(tomato == -1){
+                        unripeCount++;
+                    }
+                }
+                box[i][j] = tomato;
+            }
+        }
+
+        if(unripeCount == 0){
+            System.out.println(0+"\n");
+        }
+
+        // 익은 토마토 찾고 주변 안 익은 토마토 찾기
+        boolean change;
+        int day = 0;
+        while(true){
+            // change 초기화
+            change = false;
+            //익은 토마토 주변 토마토 확인
+            for(int i = 0; i<n; i++){
+                for(int j =0; j<m;j++){
+                    if(box[i][j] == 1){
+                        for(int k = 0; k < 4; k++){
+                            int x = i + dx[k];
+                            int y = j + dy[k];
+                            if(x >=0 && x <n && y >=0 && y <m && box[x][y] == -1){
+                                change = true;
+                                set.add(new Axis(x,y));
+                            }
+                        }
+                    }
+                }
+            }
+            if(!change){
+                break;
+            }
+
+            // 토마토 변경, 날짜 세기
+            for(Axis axis : set){
+                box[axis.x][axis.y] = 1;
+                unripeCount--;
+            }
+            day++;
+
+        }
+        if(unripeCount != 0){
+            System.out.println(-1 + "\n");
+            return;
+        }
+
+        System.out.println("다 익는데 걸린 시간 : " +day);
+    }
 }
