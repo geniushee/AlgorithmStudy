@@ -310,4 +310,14 @@ public class AlgorithmTest {
                 -1 1""");
 
     }
+    @Test
+    @DisplayName("카드 정렬하기")
+    public void orderCard() throws IOException {
+
+        CardOrdering.run("""
+                3
+                10
+                20
+                40""");
+    }
 }
