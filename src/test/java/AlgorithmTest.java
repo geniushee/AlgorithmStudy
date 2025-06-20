@@ -320,4 +320,13 @@ public class AlgorithmTest {
                 20
                 40""");
     }
+
+    @Test
+    @DisplayName("LCS")
+    public void LCS() throws IOException {
+
+        LCS.run("""
+                ACAYKP
+                CAPCAK""");
+    }
 }
