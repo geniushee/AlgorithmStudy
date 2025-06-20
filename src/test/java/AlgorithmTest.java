@@ -329,4 +329,11 @@ public class AlgorithmTest {
                 ACAYKP
                 CAPCAK""");
     }
+
+    @Test
+    @DisplayName("NQueen")
+    public void nQueen() throws IOException {
+
+        NQueen.run("8");
+    }
 }
