@@ -334,6 +334,19 @@ public class AlgorithmTest {
     @DisplayName("NQueen")
     public void nQueen() throws IOException {
 
-        NQueen.run("8");
+        NQueen.run("81");
+    }
+
+    @Test
+    @DisplayName("적록색약")
+    public void redGreen() throws IOException {
+
+        RedGreen.run("""
+                5
+                RRRBB
+                GGBBB
+                BBBRR
+                BBRRR
+                RRRRR""");
     }
 }
