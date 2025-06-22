@@ -349,4 +349,34 @@ public class AlgorithmTest {
                 BBRRR
                 RRRRR""");
     }
+
+    @Test
+    @DisplayName("두 용액")
+    public void twoLiquid() throws IOException {
+
+        TwoLiquid.run("""
+                5
+                -2 4 -99 -1 98""");
+        TwoLiquid.run("""
+                4
+                -3 50 -99 -49""");
+        TwoLiquid.run("""
+                4
+                -3 -50 -99 -49""");
+        TwoLiquid.run("""
+                4
+                3 50 99 49""");
+        TwoLiquid.run("""
+                2
+                1 2""");
+        TwoLiquid.run("""
+                2
+                -1 -2""");
+        TwoLiquid.run("""
+                2
+                -1 1""");
+        TwoLiquid.run("""
+                5
+                -2 4 -99 -1 98""");
+    }
 }
