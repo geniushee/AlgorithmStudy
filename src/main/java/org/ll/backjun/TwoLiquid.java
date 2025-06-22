@@ -26,79 +26,36 @@ public class TwoLiquid {
     public static void main(String[] arg) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
         // 초기화
         min = Integer.MAX_VALUE;
         answer = new int[2];
         int n = Integer.parseInt(br.readLine());
         String[] els = br.readLine().split(" ");
-        arr = new int[n+1];
-        arr[n] = 0;
+        arr = new int[n];
         for(int i = 0;i<n;i++){
             arr[i] = Integer.parseInt(els[i]);
         }
         Arrays.sort(arr);
-        int zeroIdx = findZero();
-        int acid = Integer.MAX_VALUE, alkali = Integer.MAX_VALUE;
 
-        // 알칼리 근사값 합
-        if(zeroIdx - 2 >= 0){
-            alkali = arr[zeroIdx - 1] + arr[zeroIdx -2];
-            alkali = alkali * -1;
-        }
-        // 산성 근사값 합
-        if(zeroIdx + 2 < arr.length){
-            acid = arr[zeroIdx + 1] + arr[zeroIdx + 2];
-        }
-
-        // 극값
-        if(zeroIdx == 0){
-            bw.write(arr[zeroIdx + 1] + " " + arr[zeroIdx + 2]+"\n");
-            bw.flush();
-            bw.close();
-            return ;
-        }
-        if(zeroIdx == arr.length - 1){
-            bw.write(arr[zeroIdx - 2] + " " + arr[zeroIdx - 1]+"\n");
-            bw.flush();
-            bw.close();
-            return ;
-        }
-
-        // 산성끼리 알칼리끼리 먼저
-        if(zeroIdx + 2 < arr.length && acid < alkali){
-            min = acid;
-            answer[0] = arr[zeroIdx + 1];
-            answer[1] = arr[zeroIdx + 2];
-        }else if(zeroIdx - 2 >= 0){
-            min = alkali;
-            answer[0] = arr[zeroIdx - 1];
-            answer[1] = arr[zeroIdx - 2];
-        }
-
-        // 좌 우측 포인터에서 값 찾기
-        for(int l = 0; l < zeroIdx; l++){
-            for(int r = arr.length -1; r >zeroIdx;r--){
-                int temp = arr[l] + arr[r];
-                if(temp< 0) temp *= -1;
-                if(temp < min) break;
-                min = temp;
-                answer[0] = arr[l];
-                answer[1] = arr[r];
+        int left = 0;
+        int right = n -1;
+        while(left < right){
+            int sum = arr[left] + arr[right];
+            int abs = Math.abs(sum);
+            if(abs < min){
+                min = abs;
+                answer[0] = arr[left];
+                answer[1] = arr[right];
+            }
+            if(sum < 0){
+                left++;
+            }else{
+                right--;
             }
         }
         bw.write(answer[0] + " " + answer[1]+"\n");
         bw.flush();
         bw.close();
-    }
-
-    public static int findZero(){
-        for(int i = 0;i<arr.length;i++){
-            if(arr[i] == 0){
-                return i;
-            }
-        }
-        return -1;
     }
 
     public static void run(String arg) throws IOException {
@@ -108,59 +65,28 @@ public class TwoLiquid {
         answer = new int[2];
         int n = Integer.parseInt(br.readLine());
         String[] els = br.readLine().split(" ");
-        arr = new int[n+1];
-        arr[n] = 0;
+        arr = new int[n];
         for(int i = 0;i<n;i++){
             arr[i] = Integer.parseInt(els[i]);
         }
         Arrays.sort(arr);
-        int zeroIdx = findZero();
-        int acid = Integer.MAX_VALUE, alkali = Integer.MAX_VALUE;
 
-        // 알칼리 근사값 합
-        if(zeroIdx - 2 >= 0){
-            alkali = arr[zeroIdx - 1] + arr[zeroIdx -2];
-            alkali = alkali * -1;
-        }
-        // 산성 근사값 합
-        if(zeroIdx + 2 < arr.length){
-            acid = arr[zeroIdx + 1] + arr[zeroIdx + 2];
-        }
-
-        // 극값
-        if(zeroIdx == 0){
-            System.out.println(arr[zeroIdx + 1] + " " + arr[zeroIdx + 2]);
-            return ;
-        }
-        if(zeroIdx == arr.length - 1){
-            System.out.println(arr[zeroIdx - 2] + " " + arr[zeroIdx - 1]);
-            return ;
-        }
-
-        // 산성끼리 알칼리끼리 먼저
-        if(zeroIdx + 2 < arr.length && acid < alkali){
-            min = acid;
-            answer[0] = arr[zeroIdx + 1];
-            answer[1] = arr[zeroIdx + 2];
-        }else if(zeroIdx - 2 >= 0){
-            min = alkali;
-            answer[0] = arr[zeroIdx - 1];
-            answer[1] = arr[zeroIdx - 2];
-        }
-
-        // 좌 우측 포인터에서 값 찾기
-        for(int l = 0; l < zeroIdx; l++){
-            for(int r = arr.length -1; r >zeroIdx;r--){
-                int temp = arr[l] + arr[r];
-                if(temp< 0) temp *= -1;
-                if(temp >= min) break;
-                min = temp;
-                answer[0] = arr[l];
-                answer[1] = arr[r];
+        int left = 0;
+        int right = n -1;
+        while(left < right){
+            int sum = arr[left] + arr[right];
+            int abs = Math.abs(sum);
+            if(abs < min){
+                min = abs;
+                answer[0] = arr[left];
+                answer[1] = arr[right];
+            }
+            if(sum < 0){
+                left++;
+            }else{
+                right--;
             }
         }
-        System.out.println(answer[0] + " " + answer[1]);
+        System.out.println(answer[0] + " " + answer[1]+"\n");
     }
-
-
 }
