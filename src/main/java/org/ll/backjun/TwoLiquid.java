@@ -81,7 +81,7 @@ public class TwoLiquid {
             for(int r = arr.length -1; r >zeroIdx;r--){
                 int temp = arr[l] + arr[r];
                 if(temp< 0) temp *= -1;
-                if(temp >= min) break;
+                if(temp < min) break;
                 min = temp;
                 answer[0] = arr[l];
                 answer[1] = arr[r];

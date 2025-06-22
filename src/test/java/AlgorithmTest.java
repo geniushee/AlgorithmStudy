@@ -376,7 +376,7 @@ public class AlgorithmTest {
                 2
                 -1 1""");
         TwoLiquid.run("""
-                5
-                -2 4 -99 -1 98""");
+                4
+                -5 -2 3 6""");
     }
 }
