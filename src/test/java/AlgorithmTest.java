@@ -379,4 +379,16 @@ public class AlgorithmTest {
                 4
                 -5 -2 3 6""");
     }
+
+    @Test
+    @DisplayName("다각형 넓이")
+    public void AreaOfPolygon() throws IOException {
+
+        AreaOfPolygon.run("""
+                4
+                0 0
+                4 6
+                10 8
+                10 0""");
+    }
 }
