@@ -391,4 +391,22 @@ public class AlgorithmTest {
                 10 8
                 10 0""");
     }
+    @Test
+    @DisplayName("트리의 지름")
+    public void diameterOfTree() throws IOException {
+
+        DiameterOfTree.run("""
+                12
+                1 2 3
+                1 3 2
+                2 4 5
+                3 5 11
+                3 6 9
+                4 7 1
+                4 8 7
+                5 9 15
+                5 10 4
+                6 11 6
+                6 12 10""");
+    }
 }
