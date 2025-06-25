@@ -409,4 +409,20 @@ public class AlgorithmTest {
                 6 11 6
                 6 12 10""");
     }
+    @Test
+    @DisplayName("연속된 소수의 합")
+    public void consecutiveSum() throws IOException {
+
+        ConsecutiveSum.run("""
+                20""");
+        ConsecutiveSum.run("""
+                3""");
+        ConsecutiveSum.run("""
+                41""");
+        ConsecutiveSum.run("""
+                53""");
+        ConsecutiveSum.run("""
+                4000000""");
+
+    }
 }
