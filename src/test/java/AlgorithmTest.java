@@ -425,4 +425,20 @@ public class AlgorithmTest {
                 4000000""");
 
     }
+    @Test
+    @DisplayName("구간 합")
+    public void intervalSum() throws IOException {
+
+        IntervalSum.run("""
+                5 2 2
+                1
+                2
+                200
+                4
+                5
+                1 3 6
+                2 2 5
+                1 5 2
+                2 3 5""");
+    }
 }
