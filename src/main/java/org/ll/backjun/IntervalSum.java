@@ -3,6 +3,9 @@ package org.ll.backjun;
 import java.io.*;
 
 /**
+ * 탑다운 방식으로 구현을 했다. 바텀업 방식으로도 구현이 가능하고 바텀업이 재귀가 없어서 메모리와 속도에 더 장점이 있다고 한다.
+ * 그러나, 구현과 다른 로직을 섞는 부분에서는 탑다운이 강점이 있다고 한다.
+ * <hr>
  * 문제<br>
  * 어떤 N개의 수가 주어져 있다. 그런데 중간에 수의 변경이 빈번히 일어나고 그 중간에 어떤 부분의 합을 구하려 한다. 만약에 1,2,3,4,5 라는 수가 있고, 3번째 수를 6으로 바꾸고 2번째부터 5번째까지 합을 구하라고 한다면 17을 출력하면 되는 것이다. 그리고 그 상태에서 다섯 번째 수를 2로 바꾸고 3번째부터 5번째까지 합을 구하라고 한다면 12가 될 것이다.<hr>
  * 입력<br>
@@ -26,6 +29,7 @@ import java.io.*;
  * 12
  */
 public class IntervalSum {
+    static long[] arr, tree;
     public static void main(String[] arg) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -33,65 +37,86 @@ public class IntervalSum {
         int n = Integer.parseInt(line[0]);
         int m = Integer.parseInt(line[1]);
         int k = Integer.parseInt(line[2]);
-        long[] arr = new long[n+1];
+        arr = new long[n+1];
+        tree = new long[4*n];
         for(int i = 1; i < n+1; i++){
             arr[i] = Long.parseLong(br.readLine());
         }
 
-        String flag;
+        buildTree(1,n,1);
 
-        for(int i = 0; i<m+k;i++){
+        for(int i = 0; i < m+k;i++){
             line = br.readLine().split(" ");
-            flag = line[0];
-            switch(flag){
-                case "1" -> change(arr, line[1], line[2]);
-                case "2" ->{
-                    long sum = partSum(arr, line[1], line[2]);
-                    bw.write(sum + "\n");
-                    bw.flush();
-                }
+            int a = Integer.parseInt(line[0]);
+            int b = Integer.parseInt(line[1]);
+            long c = Long.parseLong(line[2]);
+
+            if(a == 1){
+                update(1,n,1,b,c);
+            }else{
+                long sum = query(1,n, 1,b, (int) c);
+                bw.write(sum + "\n");
+                bw.flush();
             }
         }
         bw.close();
     }
-    private static long partSum(long[] arr, String s, String e) {
-        int start = Integer.parseInt(s);
-        int end = Integer.parseInt(e);
-        long sum = 0;
-        for(int i = start; i<=end; i++){
-            sum += arr[i];
-        }
-        return sum;
-    }
 
-    private static void change(long[] arr, String preIdx, String changed) {
-        int idx = Integer.parseInt(preIdx);
-        arr[idx] = Long.parseLong(changed);
-    }
+    /**
+     * 세그먼트 트리를 사용하여 다시 풀이
+     */
     public static void run(String arg) throws IOException {
         BufferedReader br = new BufferedReader(new StringReader(arg));
         String[] line = br.readLine().split(" ");
         int n = Integer.parseInt(line[0]);
         int m = Integer.parseInt(line[1]);
         int k = Integer.parseInt(line[2]);
-        long[] arr = new long[n+1];
+        arr = new long[n+1];
+        tree = new long[4*n];
         for(int i = 1; i < n+1; i++){
             arr[i] = Long.parseLong(br.readLine());
         }
 
-        String flag;
+        buildTree(1,n,1);
 
-        for(int i = 0; i<m+k;i++){
+        for(int i = 0; i < m+k;i++){
             line = br.readLine().split(" ");
-            flag = line[0];
-            switch(flag){
-                case "1" -> change(arr, line[1], line[2]);
-                case "2" ->{
-                    long sum = partSum(arr, line[1], line[2]);
-                    System.out.print(sum + "\n");
-                }
+            int a = Integer.parseInt(line[0]);
+            int b = Integer.parseInt(line[1]);
+            long c = Long.parseLong(line[2]);
+
+            if(a == 1){
+                update(1,n,1,b,c);
+            }else{
+                long sum = query(1,n, 1,b, (int) c);
+                System.out.println(sum);
             }
         }
+    }
 
+    private static long buildTree(int start, int end, int node) {
+        if(start == end) return tree[node] = arr[start];
+        int mid = (start + end) / 2;
+        long left = buildTree(start, mid, node * 2);
+        long right = buildTree(mid + 1, end, node * 2 + 1);
+        return tree[node] = left + right;
+    }
+
+    private static long query(int start, int end, int node, int b, int c) {
+        if(b <= start && c >= end) return tree[node];
+        if(end < b || c < start) return 0;
+        int mid = (start + end) / 2;
+        long left = query(start, mid, node * 2, b, c);
+        long right = query(mid + 1, end, node * 2 +1, b,c);
+        return left + right;
+    }
+
+    private static long update(int start, int end,int node, int b, long c) {
+        if(b < start || b > end) return tree[node];
+        if(start == end) return tree[node] = c;
+        int mid = (start + end) / 2;
+        long left = update(start, mid, node * 2, b,c);
+        long right = update(mid + 1, end, node * 2 + 1, b,c);
+        return tree[node] = left + right;
     }
 }
