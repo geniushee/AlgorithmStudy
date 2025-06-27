@@ -441,4 +441,28 @@ public class AlgorithmTest {
                 1 5 2
                 2 3 5""");
     }
+    @Test
+    @DisplayName("가장 긴 증가하는 부분 수열")
+    public void longestPartSequence() throws IOException {
+
+        LongestPartSequence.run("""
+                6
+                10 20 10 30 20 50""");
+        LongestPartSequence.run("""
+                8
+                10 20 10 30 20 50 30 10""");
+        LongestPartSequence.run("""
+                1
+                10""");
+        LongestPartSequence.run("""
+                8
+                10 0 0 0 0 0 0 0""");
+        LongestPartSequence.run("""
+                11
+                10 20 30 40 50 60 70 80 90 100 110""");
+        LongestPartSequence.run("""
+                2
+                10 20""");
+
+    }
 }
