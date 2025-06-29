@@ -465,4 +465,16 @@ public class AlgorithmTest {
                 10 20""");
 
     }
+
+    @Test
+    @DisplayName("나3곱2")
+    public void na3gop2() throws IOException {
+
+        Na3Gop2.run("""
+                6
+                4 8 6 3 12 9""");
+        Na3Gop2.run("""
+                4
+                42 28 84 126""");
+    }
 }
