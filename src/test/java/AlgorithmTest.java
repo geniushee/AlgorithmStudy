@@ -477,4 +477,29 @@ public class AlgorithmTest {
                 4
                 42 28 84 126""");
     }
+    @Test
+    @DisplayName("로봇 청소기")
+    public void robotCleaner() throws IOException {
+
+        RobotCleaner.run("""
+                3 3
+                1 1 0
+                1 1 1
+                1 0 1
+                1 1 1""");
+        RobotCleaner.run("""
+                11 10
+                7 4 0
+                1 1 1 1 1 1 1 1 1 1
+                1 0 0 0 0 0 0 0 0 1
+                1 0 0 0 1 1 1 1 0 1
+                1 0 0 1 1 0 0 0 0 1
+                1 0 1 1 0 0 0 0 0 1
+                1 0 0 0 0 0 0 0 0 1
+                1 0 0 0 0 0 0 1 0 1
+                1 0 0 0 0 0 1 1 0 1
+                1 0 0 0 0 0 1 1 0 1
+                1 0 0 0 0 0 0 0 0 1
+                1 1 1 1 1 1 1 1 1 1""");
+    }
 }
