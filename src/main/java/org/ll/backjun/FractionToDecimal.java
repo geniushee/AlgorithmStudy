@@ -89,12 +89,12 @@ public class FractionToDecimal {
 //            System.out.println(ground);
             // 답안지 작성
             if (start == -1) {
-                for (Integer num : ground) {
+                for(Integer num : ground){
                     answer.append(num);
                 }
                 answer.append("(0)");
             } else {
-                for (int x = 0; x < start; x++) {
+                for(int x = 0;x<start;x++){
                     answer.append(ground.get(x));
                 }
                 answer.append("(");
@@ -105,9 +105,8 @@ public class FractionToDecimal {
             }
             bw.write(answer + "\n");
             bw.flush();
-            bw.close();
-
         }
+        bw.close();
     }
 
     public static int[] divide(int son, int parent) {
