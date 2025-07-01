@@ -502,4 +502,17 @@ public class AlgorithmTest {
                 1 0 0 0 0 0 0 0 0 1
                 1 1 1 1 1 1 1 1 1 1""");
     }
+    @Test
+    @DisplayName("분수를 소수로")
+    public void fractionToDecimal() throws IOException {
+
+        FractionToDecimal.run("""
+                6
+                1 2
+                1 7
+                10 5
+                11 5
+                995 476
+                991 994""");
+    }
 }
