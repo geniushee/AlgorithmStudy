@@ -515,4 +515,12 @@ public class AlgorithmTest {
                 995 476
                 991 994""");
     }
+    @Test
+    @DisplayName("부분합")
+    public void partialSum() throws IOException {
+
+        PartialSum.run("""
+                10 15
+                5 1 3 5 10 7 4 9 2 8""");
+    }
 }
