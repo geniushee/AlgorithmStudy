@@ -523,4 +523,16 @@ public class AlgorithmTest {
                 10 15
                 5 1 3 5 10 7 4 9 2 8""");
     }
+
+    @Test
+    @DisplayName("이항계수3")
+    public void binomialCoefficient3() throws IOException {
+
+        BinomialCoefficient3.run("""
+                10 7""");
+        BinomialCoefficient3.run("""
+                5 2""");
+        BinomialCoefficient3.run("""
+                4000000 200000""");
+    }
 }
