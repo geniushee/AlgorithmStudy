@@ -535,4 +535,32 @@ public class AlgorithmTest {
         BinomialCoefficient3.run("""
                 4000000 200000""");
     }
+
+    @Test
+    @DisplayName("토마토2")
+    public void tomato2() throws IOException {
+
+        Tomato2.run("""
+                5 3 1
+                0 -1 0 0 0
+                -1 -1 0 1 1
+                0 0 0 1 1""");
+        Tomato2.run("""
+                5 3 2
+                0 0 0 0 0
+                0 0 0 0 0
+                0 0 0 0 0
+                0 0 0 0 0
+                0 0 1 0 0
+                0 0 0 0 0""");
+        Tomato2.run("""
+                4 3 2
+                1 1 1 1
+                1 1 1 1
+                1 1 1 1
+                1 1 1 1
+                -1 -1 -1 -1
+                1 1 1 -1""");
+
+    }
 }
