@@ -563,4 +563,37 @@ public class AlgorithmTest {
                 1 1 1 -1""");
 
     }
+
+    @Test
+    @DisplayName("수 묶기")
+    public void bindNumber() throws IOException {
+
+        BindingNumber.run("""
+                4
+                -1
+                2
+                1
+                3""");
+        BindingNumber.run("""
+                6
+                0
+                1
+                2
+                4
+                3
+                5""");
+        BindingNumber.run("""
+                1
+                -1""");
+        BindingNumber.run("""
+                3
+                -1
+                0
+                1""");
+        BindingNumber.run("""
+                2
+                1
+                1""");
+
+    }
 }
