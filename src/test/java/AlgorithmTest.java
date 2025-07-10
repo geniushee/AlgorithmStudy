@@ -596,4 +596,29 @@ public class AlgorithmTest {
                 1""");
 
     }
+
+    @Test
+    @DisplayName("알파벳")
+    public void alphabet() throws IOException {
+
+        Alphabet.run("""
+                2 4
+                CAAB
+                ADCB""");
+        Alphabet.run("""
+                3 6
+                HFDFFB
+                AJHGDH
+                DGAGEH""");
+        Alphabet.run("""
+                5 5
+                IEFCJ
+                FHFKC
+                FFALF
+                HFGCF
+                HMCHH""");
+        Alphabet.run("""
+                1 1
+                I""");
+    }
 }
