@@ -648,4 +648,20 @@ public class AlgorithmTest {
                 2 4 5
                 3 4 6""");
     }
+
+    @Test
+    @DisplayName("친구 네트워크")
+    public void friendNetwork() throws IOException {
+
+        FriendNetwork.run("""
+                2
+                3
+                Fred Barney
+                Barney Betty
+                Betty Wilma
+                3
+                Fred Barney
+                Betty Wilma
+                Barney Betty""");
+    }
 }
