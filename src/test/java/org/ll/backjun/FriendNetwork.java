@@ -33,67 +33,84 @@ import java.util.*;
  * 4
  */
 public class FriendNetwork {
+    // 이름에 ID를 부여
+    private static Map<String, Integer> nameToId;
+    private static int[] parent;
+    private static int[] size;
+
+    /**
+     * Union-find 자료구조를 사용하여 구현
+     * @param arg
+     * @throws IOException
+     */
     public static void run(String arg) throws IOException {
         BufferedReader br = new BufferedReader(new StringReader(arg));
         int N = Integer.parseInt(br.readLine());
         // 케이스  N회
-        for(int n = 0; n < N; n++){
-            // 초기화
+        for(int n = 0; n<N;n++){
             int F = Integer.parseInt(br.readLine());
-            List<String>[] friends = new ArrayList[2*F];
+            parent =new int[F*2];
+            size = new int[F*2];
+            nameToId = new HashMap<>();
             int id = 0;
-            Map<String, Integer> personId = new HashMap<>();
 
-
-
-            // readLine
             for(int f = 0; f<F;f++){
                 String[] line = br.readLine().split(" ");
-                Integer pId = personId.get(line[0]);
-                if(pId == null){
-                    personId.put(line[0], id++);
-                    pId = personId.get(line[0]);
-                }
-                if(friends[pId] == null){
-                    friends[pId] = new ArrayList<>();
-                }
-                friends[pId].add(line[1]);
 
-                pId = personId.get(line[1]);
-                if(pId == null){
-                    personId.put(line[1], id++);
-                    pId = personId.get(line[1]);
+                if(!nameToId.containsKey(line[0])){
+                    nameToId.put(line[0], id);
+                    parent[id] = id;
+                    size[id]++;
+                    id++;
                 }
-                if(friends[pId] == null){
-                    friends[pId] = new ArrayList<>();
+                if(!nameToId.containsKey(line[1])){
+                    nameToId.put(line[1], id);
+                    parent[id] = id;
+                    size[id]++;
+                    id++;
                 }
-                friends[pId].add(line[0]);
-//System.out.println(Arrays.deepToString(friends));
-                showNetwork(friends, personId,line);
-            }
-
-
-        }
-    }
-    public static void showNetwork(List<String>[] friends, Map<String, Integer> ids, String[] twoPerson){
-        Queue<String> nodes = new LinkedList<>();
-        Set<String> unique = new HashSet<>();
-        nodes.add(twoPerson[0]);
-        nodes.add(twoPerson[1]);
-
-        while(!nodes.isEmpty()){
-            String person = nodes.poll();
-//            System.out.println(person);
-            if(!unique.contains(person)){
-                unique.add(person);
-
-                for(String f : friends[ids.get(person)]){
-                    if(!unique.contains(f)){
-                        nodes.add(f);
-                    }
-                }
+                int p1 = nameToId.get(line[0]), p2 = nameToId.get(line[1]);
+                union(p1, p2);
+                System.out.println(nameToId);
+                System.out.println(Arrays.toString(parent));
+                System.out.println(Arrays.toString(size));
+                System.out.println(size[find(p1)]);
             }
         }
-        System.out.println(unique.size());
+
+
     }
+
+    /**
+     * 부모 찾기<br>
+     * 속해 있는 집답의 루트를 찾아서 반환
+     * @param x 가 어떤 집합에 속해 있는지 찾기
+     * @return x가 속해 있는 집합의 최종 루트 반환
+     */
+    private static int find(int x){
+        if(parent[x] != x){
+            parent[x] = find(parent[x]);
+        }
+        return parent[x];
+    }
+
+    /**
+     * 집합 합치기<br>
+     * 합치고자 하는 집합의 어떤 원소 x,y를 사용하여 두 집합을 크기 기준으로 합한다.
+     * @param x 어떤 집합의 한 원소
+     * @param y 어떤 집합의 한 원소
+     */
+     private static void union(int x, int y){
+        int rx = find(x);
+        int ry = find(y);
+        if(rx != ry){
+            if(size[rx] > size[ry]){
+                size[rx] = size[rx] + size[ry];
+                parent[ry] = rx;
+            }else{
+                size[ry] = size[ry] + size[rx];
+                parent[rx] = ry;
+            }
+        }
+     }
 }
