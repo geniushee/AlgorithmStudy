@@ -2,6 +2,7 @@ import sys
 from io import StringIO
 from functools import wraps
 from chicken_delivery import chicken_delivery
+from drawingline import drawing_line
 
 def mock_input(input_data):
     def decorator(func):
@@ -55,3 +56,22 @@ def test_chicken_delivery3():
 def test_chicken_delivery4():
     result = chicken_delivery()
     assert result == 32
+
+
+@mock_input("""4
+1 3
+2 5
+3 5
+6 7""")
+def test_drawing_line1():
+    result = drawing_line()
+    assert result == 5
+
+@mock_input("""4
+-1000000000 3
+2 1000000000
+3 5
+6 7""")
+def test_drawing_line2():
+    result = drawing_line()
+    assert result == 5
