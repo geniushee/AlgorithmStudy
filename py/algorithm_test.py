@@ -3,6 +3,7 @@ from io import StringIO
 from functools import wraps
 from chicken_delivery import chicken_delivery
 from drawingline import drawing_line
+from number_set import number_set
 
 def mock_input(input_data):
     def decorator(func):
@@ -74,4 +75,17 @@ def test_drawing_line1():
 6 7""")
 def test_drawing_line2():
     result = drawing_line()
+    assert result == 5
+
+@mock_input("""7 8
+0 1 3
+1 1 7
+0 7 6
+1 7 1
+0 3 7
+0 4 2
+0 1 1
+1 1 3""")
+def test_number_set1():
+    result = number_set()
     assert result == 5
