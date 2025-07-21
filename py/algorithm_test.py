@@ -4,6 +4,7 @@ from functools import wraps
 from chicken_delivery import chicken_delivery
 from drawingline import drawing_line
 from number_set import number_set
+from double_heap import *
 
 def mock_input(input_data):
     def decorator(func):
@@ -89,3 +90,26 @@ def test_drawing_line2():
 def test_number_set1():
     result = number_set()
     assert result == 5
+
+@mock_input("""2
+7
+I 16
+I -5643
+D -1
+D 1
+D 1
+I 123
+D -1
+9
+I -45
+I 653
+D 1
+I -642
+I 45
+I 97
+D 1
+D -1
+I 333""")
+def test_double_heap1():
+    result = double_heap()
+    assert result == f"EMPTY\n333 -45"
