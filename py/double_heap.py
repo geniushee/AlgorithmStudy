@@ -36,171 +36,204 @@ I 333
 예제 출력 1 
 EMPTY
 333 -45"""
-from collections import *
-import math
 
-class doubleHeap:
-    def __init__(self):
-        self.arr = [0]
-        self.size = 0
-        self.depth = 0
+# 더블 힙 구현 실패
+# class doubleHeap:
+#     def __init__(self):
+#         self.arr = [0]
+#         self.size = 0
+#         self.depth = 0
 
-    def insert(self, x):
-        self.arr.append(x)
-        self.size += 1
-        self.depth = math.floor(math.log2(self.size))
-        if self.size == 1:
-            return
-        current = self.size
-        if self.is_min_area(current):
-            oppsite_idx = (current - 1) // 2 + pow(2, self.depth - 2)
-            if self.arr[oppsite_idx] < x:
-                self.swap(oppsite_idx, current)
-                self.swap(oppsite_idx, 2)
-                self.max_heapify(2)
-            else:
-                self.swap(current, 1)
-                self.min_heapify(1)
-        else:
-            # max area
-            oppsite_idx = self.size - pow(2, self.depth -1)
-            if self.arr[oppsite_idx] < x:
-                self.swap(2, self.size)
-            else:
-                self.swap(oppsite_idx, self.size)
-                self.swap(2, self.size)
-                self.min_heapify(1)
-            self.max_heapify(2)
+#     def insert(self, x):
+#         self.arr.append(x)
+#         self.size += 1
+#         self.depth = math.floor(math.log2(self.size))
+#         if self.size == 1:
+#             return
+#         current = self.size
+#         if self.is_min_area(current):
+#             oppsite_idx = (current - 1) // 2 + pow(2, self.depth - 2)
+#             if self.arr[oppsite_idx] < x:
+#                 self.swap(oppsite_idx, current)
+#                 self.swap(oppsite_idx, 2)
+#                 self.max_heapify(2)
+#             else:
+#                 self.swap(current, 1)
+#                 self.min_heapify(1)
+#         else:
+#             # max area
+#             oppsite_idx = self.size - pow(2, self.depth -1)
+#             if self.arr[oppsite_idx] < x:
+#                 self.swap(2, self.size)
+#             else:
+#                 self.swap(oppsite_idx, self.size)
+#                 self.swap(2, self.size)
+#                 self.min_heapify(1)
+#             self.max_heapify(2)
             
 
 
-    def delete(self, flag):
-        if self.size == 0:
-            return
-        if flag == 1:
-            # 맥스 삭제
-            if self.size <= 2:
-                self.arr.pop()
-                self.size -= 1
-                return
-            if self.is_min_area(self.size):
-                # 현재 크기가 최소 영역일 때,
-                i = pow(2, self.depth - 1) - 1
-                self.swap(self.size, 2)
-                self.arr.pop()
-                self.size -= 1
-                self.depth = math.floor(math.log2(self.size))
-            else:
-                # 현재 크기가 최대 영역일 때,
-                self.swap(2, self.size)
-                self.arr.pop()
-                self.size -= 1
+#     def delete(self, flag):
+#         if self.size == 0:
+#             return
+#         if flag == 1:
+#             # 맥스 삭제
+#             if self.size <= 2:
+#                 self.arr.pop()
+#                 self.size -= 1
+#                 return
+#             if self.is_min_area(self.size):
+#                 # 현재 크기가 최소 영역일 때,
+#                 i = pow(2, self.depth - 1) - 1
+#                 self.swap(self.size, 2)
+#                 self.arr.pop()
+#                 self.size -= 1
+#                 self.depth = math.floor(math.log2(self.size))
+#             else:
+#                 # 현재 크기가 최대 영역일 때,
+#                 self.swap(2, self.size)
+#                 self.arr.pop()
+#                 self.size -= 1
             
-            if self.size >= 2:
-                self.max_heapify(2)
+#             if self.size >= 2:
+#                 self.max_heapify(2)
         
-        else:
-            # 최소 삭제
-            if self.size == 1:
-                self.arr.pop()
-                self.size -= 1
-                return 
-            if self.is_min_area(self.size):
-                # 현재크기가 최소 영역일 때,
-                self.swap(self.size, 1)
-                self.arr.pop()
-                self.size -= 1
-                self.depth = math.floor(math.log2(self.size))
-            else:
-                # 현재크기가 최대 영역일 때,
-                self.swap(self.size, 1)
-                self.arr.pop()
-                self.size -= 1
+#         else:
+#             # 최소 삭제
+#             if self.size == 1:
+#                 self.arr.pop()
+#                 self.size -= 1
+#                 return 
+#             if self.is_min_area(self.size):
+#                 # 현재크기가 최소 영역일 때,
+#                 self.swap(self.size, 1)
+#                 self.arr.pop()
+#                 self.size -= 1
+#                 self.depth = math.floor(math.log2(self.size))
+#             else:
+#                 # 현재크기가 최대 영역일 때,
+#                 self.swap(self.size, 1)
+#                 self.arr.pop()
+#                 self.size -= 1
             
-            if self.size >= 1:
-                self.min_heapify(1)
+#             if self.size >= 1:
+#                 self.min_heapify(1)
         
 
-    def is_min_area(self, i):
-        # 현재 깊이 = log_2 n의 정수 = d
-        if i <= (pow(2,self.depth) - 1 + pow(2, self.depth - 1) - 1):
-            print("왼쪽")
-            return True
-        else:
-            print("오른쪽")
-            return False
+#     def is_min_area(self, i):
+#         # 현재 깊이 = log_2 n의 정수 = d
+#         if i <= (pow(2,self.depth) - 1 + pow(2, self.depth - 1) - 1):
+#             print("왼쪽")
+#             return True
+#         else:
+#             print("오른쪽")
+#             return False
         
-    def min_heapify(self, i):
-        if self.is_leaf(i):
-            return
-        left = i * 2 + 1
-        right = i * 2 + 2
-        if self.size >= right and self.arr[left] > self.arr[right]:    
-            if self.arr[i] > self.arr[right]:
-                self.swap(i, right)
-                self.min_heapify(right)
-        else:
-            if self.arr[i] > self.arr[left]:
-                self.swap(i, left)
-                self.min_heapify(left)
+#     def min_heapify(self, i):
+#         if self.is_leaf(i):
+#             return
+#         left = i * 2 + 1
+#         right = i * 2 + 2
+#         if self.size >= right and self.arr[left] > self.arr[right]:    
+#             if self.arr[i] > self.arr[right]:
+#                 self.swap(i, right)
+#                 self.min_heapify(right)
+#         else:
+#             if self.arr[i] > self.arr[left]:
+#                 self.swap(i, left)
+#                 self.min_heapify(left)
             
 
-    def max_heapify(self, i):
-        if self.is_leaf(i):
-            return 
-        left = i * 2 + 1
-        right = i * 2 + 2
+#     def max_heapify(self, i):
+#         if self.is_leaf(i):
+#             return 
+#         left = i * 2 + 1
+#         right = i * 2 + 2
      
-        if self.size >= right and self.arr[left] < self.arr[right]:
-            if self.arr[i] < self.arr[right]:
-                self.swap(i, right)
-                self.max_heapify(right)
-        else:
-            if self.arr[i] < self.arr[left]:
-                self.swap(i, left)
-                self.max_heapify(left)
+#         if self.size >= right and self.arr[left] < self.arr[right]:
+#             if self.arr[i] < self.arr[right]:
+#                 self.swap(i, right)
+#                 self.max_heapify(right)
+#         else:
+#             if self.arr[i] < self.arr[left]:
+#                 self.swap(i, left)
+#                 self.max_heapify(left)
             
 
-    def is_leaf(self, i):
-        if i * 2 + 1 > self.size:
-            return True
-        elif i * 2 + 2 > self.size:
-            return True
-        return False
-    def swap(self, x, y):
-        temp = self.arr[x]
-        self.arr[x] = self.arr[y]
-        self.arr[y] = temp
-        print(f"swap: x={x}, y={y},{self.arr}")
+#     def is_leaf(self, i):
+#         if i * 2 + 1 > self.size:
+#             return True
+#         elif i * 2 + 2 > self.size:
+#             return True
+#         return False
+#     def swap(self, x, y):
+#         temp = self.arr[x]
+#         self.arr[x] = self.arr[y]
+#         self.arr[y] = temp
+#         print(f"swap: x={x}, y={y},{self.arr}")
 
-    def __str__(self):
-        if self.size == 0:
-            return f"EMPTY"
-        if self.arr[2]:
-            return f"{self.arr[1]} {self.arr[2]}"
-        else:
-            return f"{self.arr[1]} {self.arr[1]}"
+#     def __str__(self):
+#         if self.size == 0:
+#             return f"EMPTY"
+#         if self.arr[2]:
+#             return f"{self.arr[1]} {self.arr[2]}"
+#         else:
+#             return f"{self.arr[1]} {self.arr[1]}"
 
-    def __repr__(self):
-        return self.arr.__str__()
+#     def __repr__(self):
+#         return self.arr.__str__()
 
-
+import heapq
     
 
 def double_heap():
     T = int(input())
+
     for _ in range(T):
+        max_heap = []
+        min_heap = []
+        visited = dict()
         k = int(input())
-        dh = doubleHeap()
-        for _ in range(k):
+        for i in range(k):
             input_data = input().split()
             c = str(input_data[0])
             n = int(input_data[1])
-            print(c, " / ", n )
             if c == 'I':
-                dh.insert(n)
+                # 삽입
+                heapq.heappush(max_heap,[-n, i])
+                heapq.heappush(min_heap,[n, i])
+                visited[i] = True
             else:
-                dh.delete(n)
-            print(repr(dh))
-        print(dh)
-    return 
+                # 삭제
+                if n == 1:
+                    # 최대값 삭제
+                    while(max_heap):
+                        num, idx = heapq.heappop(max_heap)
+                        if visited[idx]:
+                            visited[idx] = False
+                            break
+                else:
+                    while(min_heap):
+                        num, idx = heapq.heappop(min_heap)
+                        if visited[idx]:
+                            visited[idx] = False
+                            break
+        
+        # 출력
+        result = ""
+        while(max_heap):
+            num, idx = heapq.heappop(max_heap)
+            if visited[idx]:
+                result += f"{-num}"
+                break
+        while(min_heap):
+            num, idx = heapq.heappop(min_heap)
+            if visited[idx]:
+                result += f" {num}"
+                break
+        if len(min_heap) == 0:
+            print("EMPTY")
+        else:
+            print(result)
+
+    return result
