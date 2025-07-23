@@ -209,31 +209,33 @@ def double_heap():
                     # 최대값 삭제
                     while(max_heap):
                         num, idx = heapq.heappop(max_heap)
-                        if visited[idx]:
+                        if visited.get(idx, False):
                             visited[idx] = False
                             break
                 else:
                     while(min_heap):
                         num, idx = heapq.heappop(min_heap)
-                        if visited[idx]:
+                        if visited.get(idx, False):
                             visited[idx] = False
                             break
         
         # 출력
         result = ""
+        min_res = None
+        max_res = None
         while(max_heap):
             num, idx = heapq.heappop(max_heap)
             if visited[idx]:
-                result += f"{-num}"
+                max_res = -num
                 break
         while(min_heap):
             num, idx = heapq.heappop(min_heap)
             if visited[idx]:
-                result += f" {num}"
+                min_res = num
                 break
         if len(min_heap) == 0:
             print("EMPTY")
         else:
-            print(result)
+            print(f"{max_res} {min_res}")
 
     return result

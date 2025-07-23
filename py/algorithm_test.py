@@ -5,6 +5,7 @@ from chicken_delivery import chicken_delivery
 from drawingline import drawing_line
 from number_set import number_set
 from double_heap import *
+from sns import tree_dp
 
 def mock_input(input_data):
     def decorator(func):
@@ -113,3 +114,29 @@ I 333""")
 def test_double_heap1():
     result = double_heap()
     assert result == f"EMPTY\n333 -45"
+
+
+@mock_input("""8
+1 2
+1 3
+1 4
+2 5
+2 6
+4 7
+4 8""")
+def test_sns1():
+    result = tree_dp()
+    assert result == 3
+
+@mock_input("""9
+1 2
+1 3
+2 4
+3 5
+3 6
+4 7
+4 8
+4 9""")
+def test_sns2():
+    result = tree_dp()
+    assert result == 2
