@@ -6,6 +6,7 @@ from drawingline import drawing_line
 from number_set import number_set
 from double_heap import *
 from sns import tree_dp
+from integration import integration
 
 def mock_input(input_data):
     def decorator(func):
@@ -140,3 +141,13 @@ def test_sns1():
 def test_sns2():
     result = tree_dp()
     assert result == 2
+
+@mock_input("""6x+6""")
+def test_integration1():
+    result = integration()
+    assert result == "3xx+6x+W"
+
+@mock_input("""2x+6""")
+def test_integration2():
+    result = integration()
+    assert result == "xx+6x+W"
