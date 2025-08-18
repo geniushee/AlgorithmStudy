@@ -151,3 +151,17 @@ def test_integration1():
 def test_integration2():
     result = integration()
     assert result == "xx+6x+W"
+
+@mock_input("""-2x""")
+def test_integration3():
+    result = integration()
+    assert result == "-xx+W"
+
+@mock_input("""0""")
+def test_integration4():
+    result = integration()
+    assert result == "0"
+
+@mock_input("""""")
+def test_draw_stars():
+    return 0

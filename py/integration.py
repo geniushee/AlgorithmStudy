@@ -16,41 +16,59 @@ f(x) = axn + bxn-1+...+cx+d
 예제 출력 1 
 3xx+6x+W
 """
-def parse(element, x_idx):
-    op = element[0]
-    si = 0
-    x = "x"
-    div = 1
-    if op == "-":
-        si = 1
-    elif op == "+":
-        si = 1
-    else:
-        op = ""
-
-    if x_idx != -1:
-        num = int(element[si:x_idx])
-        x += "x"
-        div = len(element) - x_idx + 1
-        
-    else:
-        num = int(element[si:])
-    
-    num //= div
-    if num == 1:
-        num = ""
-    return op + str(num) + x
 
 def integration():
-    text = input()
-    x_idx = text.find("x")
-    a,b = "", ""
-    if x_idx != -1:
-        a = parse(text[:x_idx+1],x_idx)
-
-    if len(text[x_idx+1]) > 0:
-        b = parse(text[x_idx+1:], -1)
+    text = input().strip()
+    if text[0] not in "+-":
+        text = "+" + text
     
-    print(f"{a}{b}+W")
+    flag = True
+    result = []
+    temp = ""
+    op = "+"
+    count = 0
+    for i in range(len(text)):
+        if flag and text[i] in "+-":
+            print("시작")
+            op = text[i]
+            flag = False
 
-    return a + b + "+W"
+        elif not flag and text[i] in "+-":
+            print("조합")
+            count += 1
+            temp = int(temp) // (count)
+            if temp == 1:
+                result.append( op + (count * "x"))
+            else:
+                result.append( op +str(temp)+(count * "x"))
+            temp = ""
+            count = 0
+            op = text[i]
+            flag = True
+
+        elif text[i] == 'x':
+            print( "카운트 업")
+            count += 1
+            
+        else:
+            print( "숫자 조합")
+            temp += text[i]
+
+    count += 1
+    temp = int(temp) // (count)
+    if len(result) == 0 and temp == 0:
+        print("0")
+        return "0"
+    else:
+        if temp == 1:
+            result.append( op + (count * "x"))
+        else:
+            result.append( op +str(temp)+(count * "x"))
+            
+        result.append("+W")
+        answer =  "".join(result)
+        if answer[0] == "+":
+            answer = answer[1:]
+
+        print(answer)
+        return answer
